@@ -15,16 +15,16 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'easy_sidemenu Demo'),
+      home: const MyHomePage(),
       debugShowCheckedModeBanner: false,
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  final String title;
+  const MyHomePage({
+    Key? key,
+  }) : super(key: key);
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -32,6 +32,10 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   PageController page = PageController();
+
+  List priority = ["Dashboard", "Users", "Files", "Downloads", "Settings"];
+  String appbarTitle = "Dashboard";
+
   bool isOpen = false;
 
   void _isOpen() {
@@ -48,7 +52,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text(appbarTitle.toString()),
         centerTitle: true,
       ),
       body: Row(
@@ -75,15 +79,6 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             title: Column(
               children: const [
-                // ConstrainedBox(
-                //   constraints: const BoxConstraints(
-                //     maxHeight: 150,
-                //     maxWidth: 150,
-                //   ),
-                //   child: Image.asset(
-                //     'assets/images/easy_sidemenu.png',
-                //   ),
-                // ),
                 Divider(
                   indent: 8.0,
                   endIndent: 8.0,
@@ -100,10 +95,13 @@ class _MyHomePageState extends State<MyHomePage> {
             items: [
               SideMenuItem(
                 priority: 0,
-                title: 'Dashboard',
+                title: priority[0],
                 onTap: () {
                   SideMenuDisplayMode.open;
                   page.jumpToPage(0);
+                  setState(() {
+                    appbarTitle = priority[0];
+                  });
                 },
                 icon: const Icon(Icons.home),
                 badgeContent: const Text(
@@ -114,17 +112,23 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               SideMenuItem(
                 priority: 1,
-                title: 'Users',
+                title: priority[1],
                 onTap: () {
                   page.jumpToPage(1);
+                  setState(() {
+                    appbarTitle = priority[1];
+                  });
                 },
                 icon: const Icon(Icons.supervisor_account),
               ),
               SideMenuItem(
                 priority: 2,
-                title: 'Files',
+                title: priority[2],
                 onTap: () {
                   page.jumpToPage(2);
+                  setState(() {
+                    appbarTitle = priority[2];
+                  });
                 },
                 icon: const Icon(Icons.file_copy_rounded),
                 trailing: Container(
@@ -142,40 +146,26 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               SideMenuItem(
                 priority: 3,
-                title: 'Download',
+                title: priority[3],
                 onTap: () {
                   page.jumpToPage(3);
+                  setState(() {
+                    appbarTitle = priority[3];
+                  });
                 },
                 icon: const Icon(Icons.download),
               ),
               SideMenuItem(
                 priority: 4,
-                title: 'Settings',
+                title: priority[4],
                 onTap: () {
                   page.jumpToPage(4);
+                  setState(() {
+                    appbarTitle = priority[4];
+                  });
                 },
                 icon: const Icon(Icons.settings),
               ),
-              SideMenuItem(
-                priority: 5,
-                onTap: () {
-                  page.jumpToPage(5);
-                },
-                icon: const Icon(Icons.image_rounded),
-              ),
-              SideMenuItem(
-                priority: 6,
-                title: 'Only Title',
-                onTap: () {
-                  page.jumpToPage(6);
-                },
-              ),
-              // SideMenuItem(
-              //   onTap: () {
-              //     setState(() {
-              //       SideMenuDisplayMode.open;
-              //     });
-
               // SideMenuItem(
               //   priority: 5,
               //   onTap: () {
@@ -196,7 +186,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 },
                 priority: 7,
                 title: 'Exit',
-                icon: Icon(Icons.add),
+                icon: Icon(Icons.exit_to_app),
               ),
             ],
           ),
