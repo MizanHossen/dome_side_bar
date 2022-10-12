@@ -16,7 +16,6 @@ class MyApp extends StatelessWidget {
       ),
       debugShowCheckedModeBanner: false,
       home: MyHomePage(
-        title: "demo",
       ),
     );
   }
