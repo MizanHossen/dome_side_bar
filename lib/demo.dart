@@ -32,6 +32,17 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   PageController page = PageController();
+  bool isOpen = false;
+
+  void _isOpen() {
+    setState(() {
+      if (isOpen == false) {
+        isOpen = true;
+      } else {
+        isOpen = false;
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,9 +58,12 @@ class _MyHomePageState extends State<MyHomePage> {
             controller: page,
             style: SideMenuStyle(
               showTooltip: false,
-              openSideMenuWidth: 200,
+
+              openSideMenuWidth: 250,
+
               // showTooltip: false,
-              displayMode: SideMenuDisplayMode.auto,
+              displayMode:
+                  isOpen ? SideMenuDisplayMode.open : SideMenuDisplayMode.auto,
               hoverColor: Colors.blue[100],
               selectedColor: Colors.lightBlue,
               selectedTitleTextStyle: const TextStyle(color: Colors.white),
@@ -156,11 +170,29 @@ class _MyHomePageState extends State<MyHomePage> {
                   page.jumpToPage(6);
                 },
               ),
+              // SideMenuItem(
+              //   onTap: () {
+              //     setState(() {
+              //       SideMenuDisplayMode.open;
+              //     });
+
+              // SideMenuItem(
+              //   priority: 5,
+              //   onTap: () {
+              //     page.jumpToPage(5);
+              //   },
+              //   icon: const Icon(Icons.image_rounded),
+              // ),
+              // SideMenuItem(
+              //   priority: 6,
+              //   title: 'Only Title',
+              //   onTap: () {
+              //     page.jumpToPage(6);
+              //   },
+              // ),
               SideMenuItem(
                 onTap: () {
-                  setState(() {
-                    SideMenuDisplayMode.open;
-                  });
+                  _isOpen();
                 },
                 priority: 7,
                 title: 'Exit',
