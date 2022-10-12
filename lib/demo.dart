@@ -32,6 +32,17 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   PageController page = PageController();
+  bool isOpen = false;
+
+  void _isOpen(){
+    setState(() {
+      if (isOpen==false) {
+        isOpen = true;
+      }else{
+        isOpen = false;
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,9 +57,10 @@ class _MyHomePageState extends State<MyHomePage> {
           SideMenu(
             controller: page,
             style: SideMenuStyle(
-              openSideMenuWidth: 300,
+              compactSideMenuWidth: 60,
+              openSideMenuWidth: 250,
               // showTooltip: false,
-              displayMode: SideMenuDisplayMode.auto,
+              displayMode: isOpen ? SideMenuDisplayMode.open : SideMenuDisplayMode.auto,
               hoverColor: Colors.blue[100],
               selectedColor: Colors.lightBlue,
               selectedTitleTextStyle: const TextStyle(color: Colors.white),
@@ -154,7 +166,10 @@ class _MyHomePageState extends State<MyHomePage> {
               //     page.jumpToPage(6);
               //   },
               // ),
-              const SideMenuItem(
+              SideMenuItem(
+                onTap: (){
+                  _isOpen();
+                },
                 priority: 7,
                 title: 'Exit',
                 icon: Icon(Icons.exit_to_app),
